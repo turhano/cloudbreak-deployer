@@ -225,7 +225,7 @@ traefik:
         - uluwatu
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
-        - ./certs/:/certs/
+$(IFS=',' read -ra KEYS <<< "$CBD_TRAEFIK_TLS"; for i in "${KEYS[@]}"; do echo -e "        - .$i:$i"; done)
     image: traefik:$DOCKER_TAG_TRAEFIK
     restart: on-failure
     command: --debug --web --InsecureSkipVerify=true \
